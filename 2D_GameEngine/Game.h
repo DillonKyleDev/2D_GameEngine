@@ -20,6 +20,9 @@ public:
 	void render();
 	void clean();
 
+	int WindowHeight();
+	int WindowWidth();
+
 	// Static renderer so that we can just grab it from the Game:: class
 	static SDL_Renderer* renderer;
 	
@@ -27,6 +30,8 @@ public:
 private:
 	bool isRunning;
 	SDL_Window* window;
+	int windowWidth;
+	int windowHeight;
 };
 
 #endif /* Game_h */

@@ -1,14 +1,15 @@
 #include "Game.h"
 #include "GameObject.h"
-
-
+#include "PerlinNoiseGenerator.h"
 
 GameObject* player;
-const char* playerFilePath = "assets/Alien_Robot.png";
+const char* playerFilePath;
 GameObject* clipboardObject;
-const char* clipboardFilePath = "assets/Clipboard.png";
-
+const char* clipboardFilePath;
 SDL_Renderer* Game::renderer = nullptr;
+
+// Perlin Noise
+PerlinNoiseGenerator* noise1D;
 
 // Game constructor
 Game::Game()
@@ -27,6 +28,13 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 {
 	std::cout << "In init" << std::endl;
 
+	playerFilePath = "assets/Alien_Robot.png";
+	clipboardFilePath = "assets/Clipboard.png";
+
+	// Set screen dimensions to our Game Instance so it can be used elsewhere
+	windowWidth = width;
+	windowHeight = height;
+
 	int flags = 0;
 	// If the fullscreen parameter in the call to init above is true,
 	// make the flags == fullscreen to pass into SDL_CreateWindow()
@@ -39,7 +47,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		std::cout << "Subsystems Initialized..." << std::endl;
 		// Create window
-		window = SDL_CreateWindow(title, xpos, ypos, width, height, flags);
+		window = SDL_CreateWindow(title, xpos, ypos, windowWidth, windowHeight, flags);
 		// Check window was created successfully
 		if (window)
 		{
@@ -64,6 +72,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	player = new GameObject(playerFilePath, 50, 50);
 	clipboardObject = new GameObject(clipboardFilePath, 200, 200);
+
+	// Perlin noise business
+	noise1D = new PerlinNoiseGenerator();
+	noise1D->Update();
 }
 
 void Game::handleEvents()
@@ -97,6 +109,7 @@ void Game::update()
 	// Call the Update function of our gameObjects
 	player->Update();
 	clipboardObject->Update();
+	std::cout << "In Game Update" << std::endl;
 }
 
 void Game::render()
@@ -105,8 +118,8 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	
 	// Call the Render functions of gameObjects
-	player->Render();
-	clipboardObject->Render();
+	//player->Render();
+	//clipboardObject->Render();
 
 	// Add new stuff to the renderer
 	SDL_RenderPresent(renderer);

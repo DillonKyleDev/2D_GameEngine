@@ -1,4 +1,6 @@
 #pragma once
+#ifndef GameObject_h
+#define GameObject_h
 
 #include "Game.h"
 
@@ -19,3 +21,5 @@ private:
 	SDL_Texture* objectTexture;
 	SDL_Rect sourceRectangle, destinationRectangle;
 };
+
+#endif

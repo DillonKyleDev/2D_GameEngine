@@ -1,24 +1,22 @@
 #include "Map.h"
+#include "TextureManager.h"
 
-class Map
+Map::Map()
 {
-	Map()
-	{
 
-	};
-
-	~Map()
-	{
-
-	};
-
-	void LoadMap()
-	{
-
-	}
-
-	void DrawMap()
-	{
-
-	}
 };
+
+Map::~Map()
+{
+
+};
+
+void Map::LoadMap()
+{
+
+}
+
+void Map::DrawMap()
+{
+
+}

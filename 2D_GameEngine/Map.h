@@ -1,5 +1,7 @@
 #pragma once
-#pragma once
+#ifndef Map_h
+#define Map_h
+
 #include "Game.h"
 
 class Map
@@ -22,3 +24,5 @@ private:
 
 	int map[20][25];
 };
+
+#endif
