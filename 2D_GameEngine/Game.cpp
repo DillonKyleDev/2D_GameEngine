@@ -10,6 +10,7 @@ SDL_Renderer* Game::renderer = nullptr;
 
 // Perlin Noise
 PerlinNoiseGenerator* noise1D;
+PerlinNoiseGenerator* noise2D;
 
 // Game constructor
 Game::Game()
@@ -24,16 +25,12 @@ Game::~Game()
 }
 
 // We made an init function to "start" the Game class
-void Game::init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen)
+void Game::init(const char* title, int xpos, int ypos, bool fullscreen)
 {
-	std::cout << "In init" << std::endl;
-
 	playerFilePath = "assets/Alien_Robot.png";
 	clipboardFilePath = "assets/Clipboard.png";
 
 	// Set screen dimensions to our Game Instance so it can be used elsewhere
-	windowWidth = width;
-	windowHeight = height;
 
 	int flags = 0;
 	// If the fullscreen parameter in the call to init above is true,
@@ -47,7 +44,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	{
 		std::cout << "Subsystems Initialized..." << std::endl;
 		// Create window
-		window = SDL_CreateWindow(title, xpos, ypos, windowWidth, windowHeight, flags);
+		window = SDL_CreateWindow(title, xpos, ypos, Game::width, Game::height, flags);
 		// Check window was created successfully
 		if (window)
 		{
@@ -61,7 +58,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		{
 			// Set the render color (to white in this case)
 			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-			std::cout << "Window created..." << std::endl;
+			std::cout << "Renderer created..." << std::endl;
 		}
 
 		isRunning = true;
@@ -74,8 +71,15 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	clipboardObject = new GameObject(clipboardFilePath, 200, 200);
 
 	// Perlin noise business
-	noise1D = new PerlinNoiseGenerator();
-	noise1D->Update();
+	//noise1D = new PerlinNoiseGenerator();
+	//noise1D->Draw1DNoise();
+	noise2D = new PerlinNoiseGenerator();
+	noise2D->Draw2DNoise();
+
+	for (int i = 0; i < Game::width * Game::height; i++)
+	{
+		noise2D->objectArray2D[i]->Update();
+	}
 }
 
 void Game::handleEvents()
@@ -96,7 +100,9 @@ void Game::handleEvents()
 			break;
 
 		case SDL_MOUSEMOTION:
-			std::cout << event.motion.x << " - " << event.motion.y << std::endl;
+			//std::cout << event.motion.x << " - " << event.motion.y << std::endl;
+			//std::cout << "pressed key" << std::endl;
+			//noise1D->Draw2DNoise();
 			break;
 		default:
 			break;
@@ -107,9 +113,12 @@ void Game::handleEvents()
 void Game::update()
 {
 	// Call the Update function of our gameObjects
-	player->Update();
-	clipboardObject->Update();
-	std::cout << "In Game Update" << std::endl;
+	//player->Update();
+	//clipboardObject->Update();
+	//for (int i = 0; i < 256; i++)
+	//{
+	//	noise1D->objectArray1D[i]->Update();
+	//}
 }
 
 void Game::render()
@@ -121,8 +130,22 @@ void Game::render()
 	//player->Render();
 	//clipboardObject->Render();
 
+	//for (int i = 0; i < 256; i++)
+	//{
+	//	noise1D->objectArray1D[i]->Render();
+	//}
+
+	for (int i = 0; i < Game::width * Game::height; i++)
+	{
+		noise2D->objectArray2D[i]->Render();
+	}
+
+
+
 	// Add new stuff to the renderer
 	SDL_RenderPresent(renderer);
+	std::cout << "Delaying 20000" << std::endl;
+	SDL_Delay(20000);
 }
 
 void Game::clean()

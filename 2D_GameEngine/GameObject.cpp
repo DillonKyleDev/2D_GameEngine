@@ -17,17 +17,18 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-	sourceRectangle.h = 32;
-	sourceRectangle.w = 32;
+	sourceRectangle.h = 1;
+	sourceRectangle.w = 1;
 	sourceRectangle.x = 0;
 	sourceRectangle.y = 0;
 	destinationRectangle.x = xPos;
 	destinationRectangle.y = yPos;
-	destinationRectangle.w = sourceRectangle.w * 2;
-	destinationRectangle.h = sourceRectangle.h * 2;
+	destinationRectangle.w = sourceRectangle.w * 3;
+	destinationRectangle.h = sourceRectangle.h * 3;
 }
 
 void GameObject::Render()
 {
+	//std::cout << xPos << "  " << yPos << std::endl;
 	SDL_RenderCopy(Game::renderer, objectTexture, &sourceRectangle, &destinationRectangle);
 }

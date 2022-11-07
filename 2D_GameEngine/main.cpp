@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 	// Here we create a new Game class instance called gameInstance
 	gameInstance = new Game();
 	// We then call our init() function on our instance
-	gameInstance->init("2D Game Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 640, false);
+	gameInstance->init("2D Game Engine", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, false);
 
 	// Now while that gameInstance is running
 	while (gameInstance->running())

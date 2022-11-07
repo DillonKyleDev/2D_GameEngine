@@ -13,15 +13,15 @@ public:
 	Game();
 	~Game();
 
-	void init(const char* title, int xpos, int ypos, int width, int height, bool fullscreen);
+	void init(const char* title, int xpos, int ypos, bool fullscreen);
 	void handleEvents();
 	void update();
 	bool running();
 	void render();
 	void clean();
 
-	int WindowHeight();
-	int WindowWidth();
+	static const int width = 800;
+	static const int height = 800;
 
 	// Static renderer so that we can just grab it from the Game:: class
 	static SDL_Renderer* renderer;
