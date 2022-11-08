@@ -10,3 +10,7 @@ After setting up the engine with a game loop and the ability to display textures
 After fiddling around with the settings a bit, the following weekend I continued on getting 2 dimensional noise going from there. This was pretty simple, especially thanks to Javidx9. It's currently set up to loop through each element in the noise array and, depending on it's value, assign a specific color texture to render at those coordinates on the screen.
 
 ![2D_perlin_noise](https://user-images.githubusercontent.com/82423961/200244316-06495c58-93b3-418e-a653-b0536bfb2348.png)
+
+Next I added 20x20 textures for basic tiles for experimenting. Added more variables for easier texturing with different size textures and screen sizes. I also added a little bit more depth to the event handling with basic keyboard input reading.
+
+![Added_Textures](https://user-images.githubusercontent.com/82423961/200477733-b6e5eee2-bb8f-414b-871a-aa01f365a35a.png)
