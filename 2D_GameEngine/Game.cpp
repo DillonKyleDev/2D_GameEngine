@@ -76,7 +76,7 @@ void Game::init(const char* title, int xpos, int ypos, bool fullscreen)
 	noise2D = new PerlinNoiseGenerator();
 	noise2D->Draw2DNoise();
 
-	for (int i = 0; i < Game::width * Game::height; i++)
+	for (int i = 0; i < Game::width / noise2D->divider * Game::height / noise2D->divider; i++)
 	{
 		noise2D->objectArray2D[i]->Update();
 	}
@@ -99,10 +99,35 @@ void Game::handleEvents()
 			isRunning = false;
 			break;
 
+		case SDL_KEYDOWN:
+			switch (event.key.keysym.scancode)
+			{
+			case 89:
+				std::cout << "Pressed 1" << std::endl;
+				break;
+
+			case 90:
+				std::cout << "Pressed 2" << std::endl;
+				break;
+
+			case 91:
+				std::cout << "Pressed 3" << std::endl;
+				break;
+
+			case 92:
+				std::cout << "Pressed 4" << std::endl;
+				noise2D->Draw2DNoise();
+
+				for (int i = 0; i < Game::width / noise2D->divider * Game::height / noise2D->divider; i++)
+				{
+					noise2D->objectArray2D[i]->Update();
+				}
+				break;
+			}
+			break;
+
 		case SDL_MOUSEMOTION:
-			//std::cout << event.motion.x << " - " << event.motion.y << std::endl;
-			//std::cout << "pressed key" << std::endl;
-			//noise1D->Draw2DNoise();
+
 			break;
 		default:
 			break;
@@ -135,7 +160,7 @@ void Game::render()
 	//	noise1D->objectArray1D[i]->Render();
 	//}
 
-	for (int i = 0; i < Game::width * Game::height; i++)
+	for (int i = 0; i < Game::width / noise2D->divider * Game::height / noise2D->divider; i++)
 	{
 		noise2D->objectArray2D[i]->Render();
 	}
@@ -144,8 +169,8 @@ void Game::render()
 
 	// Add new stuff to the renderer
 	SDL_RenderPresent(renderer);
-	std::cout << "Delaying 20000" << std::endl;
-	SDL_Delay(20000);
+	//std::cout << "Delaying 20000" << std::endl;
+	//SDL_Delay(20000);
 }
 
 void Game::clean()

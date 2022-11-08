@@ -17,14 +17,14 @@ GameObject::~GameObject()
 
 void GameObject::Update()
 {
-	sourceRectangle.h = 1;
-	sourceRectangle.w = 1;
+	sourceRectangle.h = 20;
+	sourceRectangle.w = 20;
 	sourceRectangle.x = 0;
 	sourceRectangle.y = 0;
 	destinationRectangle.x = xPos;
 	destinationRectangle.y = yPos;
-	destinationRectangle.w = sourceRectangle.w * 3;
-	destinationRectangle.h = sourceRectangle.h * 3;
+	destinationRectangle.w = sourceRectangle.w;
+	destinationRectangle.h = sourceRectangle.h;
 }
 
 void GameObject::Render()

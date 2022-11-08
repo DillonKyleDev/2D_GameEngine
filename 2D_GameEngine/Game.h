@@ -20,8 +20,8 @@ public:
 	void render();
 	void clean();
 
-	static const int width = 800;
-	static const int height = 800;
+	static const int width = 1200;
+	static const int height = 1200;
 
 	// Static renderer so that we can just grab it from the Game:: class
 	static SDL_Renderer* renderer;

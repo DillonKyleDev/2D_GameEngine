@@ -77,6 +77,8 @@ void PerlinNoiseGenerator::Draw1DNoise()
 
 void PerlinNoiseGenerator::Generate2DNoiseSeed()
 {	
+	std::cout << "Generating random noise seed..." << std::endl;
+
 	// Release the old array from memory before assigning a new one
 	if (noiseSeed2D != nullptr)
 	{
@@ -95,7 +97,7 @@ void PerlinNoiseGenerator::Generate2DNoiseSeed()
 
 void PerlinNoiseGenerator::GenerateNoise2D(int width, int height, float* seed, int octaves, float bias, float* output)
 {
-	std::cout << "Generating 2D Noise..." << std::endl;
+	std::cout << "Generating 2D noise array..." << std::endl;
 
 	// 2D Perlin Noise
 	for (int x = 0; x < width; x++)
@@ -130,9 +132,7 @@ void PerlinNoiseGenerator::GenerateNoise2D(int width, int height, float* seed, i
 			if (noise / scaleAccumulate > highest2DNoiseValue)
 			{
 				highest2DNoiseValue = noise / scaleAccumulate;
-				//std::cout << highest2DNoiseValue << std::endl;
 			}
-			// std::cout << noise / scaleAccumulate << std::endl;
 		}
 	}
 }
@@ -148,7 +148,7 @@ void PerlinNoiseGenerator::Draw2DNoise()
 
 	perlinNoise2D = new float[outputWidth * outputHeight];
 
-	GenerateNoise2D(outputWidth, outputHeight, noiseSeed2D, 8, 2, perlinNoise2D);
+	GenerateNoise2D(outputWidth, outputHeight, noiseSeed2D, 6, 2.4, perlinNoise2D);
 
 	std::cout << "Drawing 2D noise..." << std::endl;
 	int count = 0;
@@ -157,29 +157,26 @@ void PerlinNoiseGenerator::Draw2DNoise()
 	{
 		for (int y = 0; y < outputHeight; y++)
 		{
-			//std::cout << perlinNoise2D[y * outputWidth + x] / highest2DNoiseValue << std::endl;
-			//std::cout << perlinNoise2D[y * outputWidth + x] / highest2DNoiseValue << std::endl;
-
 			if (perlinNoise2D[y * outputWidth + x] / highest2DNoiseValue < 0.33f)
 			{
-				GameObject* newObject = new GameObject("assets/Green_Pixel.png", x, y);
+				GameObject* newObject = new GameObject("assets/Rock_Block.png", x * divider, y * divider);
 				objectArray2D[count] = newObject;
 				count++;
 			}
 			else if (perlinNoise2D[y * outputWidth + x] / highest2DNoiseValue < 0.44f)
 			{
-				GameObject* newObject = new GameObject("assets/Rock.png", x, y);
+				GameObject* newObject = new GameObject("assets/Dirt_Block.png", x * divider, y * divider);
 				objectArray2D[count] = newObject;
 				count++;
 			}
-			else if (perlinNoise2D[y * outputWidth + x] / highest2DNoiseValue < 0.77f)
+			else if (perlinNoise2D[y * outputWidth + x] / highest2DNoiseValue < 0.66f)
 			{
-				GameObject* newObject = new GameObject("assets/Sand.png", x, y);
+				GameObject* newObject = new GameObject("assets/Sand_Block.png", x * divider, y * divider);
 				objectArray2D[count] = newObject;
 				count++;
 			} else
 			{
-				GameObject* newObject = new GameObject("assets/Water.png", x, y);
+				GameObject* newObject = new GameObject("assets/Water_Block.png", x * divider, y * divider);
 				objectArray2D[count] = newObject;
 				count++;
 			}
